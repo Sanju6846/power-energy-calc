@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy || Power Calculator </title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body class="bg-[#180161] h-screen">
+    <div id="nav-dialog" class=" bg-[#1F1C2C] text-white font-bold lg:flex gap-14 items-center justify-center ">
+        <label><input class="m-5" type="checkbox" id="check1" onchange="toggleDivs()"> Single Phase Meter</label>
+        <label><input class="m-5" type="checkbox" id="check2" onchange="toggleDivs()"> Three Phase Meter</label>
+    </div>
+    <div class="bg-[#180161] flex text-white justify-evenly items-center h-screen flex-col lg:grid lg:grid-cols-3 lg:items-center lg:justify-evenly  lg:place-items-center">
+
+
+    <!-- This is for input single pahse -->
+    <div id="div1" class="border border-gray-300 max-h-min p-8 w-3/4 mt-5 flex flex-col bg-slate-500 rounded-lg">
+        <div class="flex items-center justify-center pb-8">
+        <h1 class="font-bold text-[22px]" >Single Phase Meter</h1>
+    </div>
+        <div>
+            <div class="flex items-start flex-col">
+            <label for="Voltage" class="mb-2 text-[22px] lg:text-[18px]">Voltage</label>
+            <input type="number" placeholder="Enter Voltage Value" id="Voltage1" class="w-full mb-2 px-1 py-1 text-black rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="Current" class="mb-2 text-[22px] lg:text-[18px]">Current</label>
+            <input type="number" placeholder="Enter Current Value" id="Current1" class="w-full mb-2 px-1 py-1 text-black rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="PF" class="mb-2 text-[22px] lg:text-[18px]">Power Factor</label>
+            <input type="number" placeholder="Enter Power Factor Value" id="PF1" class="w-full mb-2 px-1 py-1 text-black rounded-md outline-blue-500">
+        </div>
+        </div>
+        <div class="mt-2">
+            <p>Note : If you want to calculate Energy or MD then select your IP (Integration period)</p>
+        </div>
+        <div class="mt-3 flex items-center justify-start gap-12">
+            <label for="">IP is 15 minutes</label>
+            <input type="radio" value="=IP" name="IP" id="DIP_15">
+        </div>
+        <div class="mt-3 flex items-center justify-start gap-12">
+            <label for="" >IP is 30 minutes</label>
+            <input type="radio" value="=IP" name="IP" id="DIP_30">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="Time" class="mb-2 mt-2 text-[22px] lg:text-[18px]">Powe on time on load</label>
+            <input type="number" placeholder="Enter Power on duration on load in minutes" id="Minutes1" class="w-full mb-2 px-1 py-1 text-black rounded-md outline-blue-500">
+        </div>
+
+        <div class="flex items-center justify-center mt-4 mb-4">
+            <button type="button" onclick="calculatePower()" class="bg-blue-400 p-2 font-bold rounded-md hover:bg-blue-500 active:text-green-400">Calculate</button>
+        </div>
+    </div>
+
+
+<!-- This for 3 phase input  -->
+
+
+    <div id="div2" class="border border-gray-300 h-min w-3/4 mt-5 flex flex-col bg-slate-500 rounded-lg p-4"> 
+        <div class="flex flex-col items-center justify-center pb-8">
+        <h1 class="font-bold text-[22px]"> Three Phase Meter </h1>
+        <h1 class="font-bold text-[22px]">(incd. HT/LT)</h1>
+    </div>
+        <div>
+            <div class="flex items-start flex-col">
+            <label for="R_Voltage" class="mb-2 text-[22px] lg:text-[18px]">R Phase Volatge</label>
+            <input type="number" placeholder="Enter R Phase Voltage" id="R_Voltage" class="w-full mb-2  text-black px-1 py-1 rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="Y_Voltage" class="mb-2 text-[22px] lg:text-[18px]">Y Phase Volatge</label>
+            <input type="number" placeholder="Enter Y Phase Voltage" id="Y_Voltage" class="w-full mb-2 px-1  text-black py-1 rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="B_Voltage" class="mb-2 text-[22px] lg:text-[18px]">B Phase Volatge</label>
+            <input type="number" placeholder="Enter B Phase Voltage" id="B_Voltage" class="w-full mb-2 px-1  text-black py-1 rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="R_Current" class="mb-2 text-[22px] lg:text-[18px]">R Phase Current</label>
+            <input type="number" placeholder="Enter R Phase Current" id="R_Current" class="w-full mb-2 px-1  text-black py-1 rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="Y_Current" class="mb-2 text-[22px] lg:text-[18px]">Y Phase Current</label>
+            <input type="number" placeholder="Enter Y Phase Current" id="Y_Current" class="w-full mb-2 px-1  text-black py-1 rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="B_Current" class="mb-2 text-[22px] lg:text-[18px]">B Phase Current</label>
+            <input type="number" placeholder="Enter B Phase Current" id="B_Current" class="w-full mb-2 px-1 py-1  text-black rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="R_PF" class="mb-2 text-[22px] lg:text-[18px]">R Phase PF</label>
+            <input type="number" placeholder="Enter R Phase PF" id="R_Pf" class="w-full mb-2 px-1 py-1  text-black rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="Y_PF" class="mb-2 text-[22px] lg:text-[18px]">Y Phase PF</label>
+            <input type="number" placeholder="Enter Y Phase PF" id="Y_Pf" class="w-full mb-2 px-1 py-1 rounded-md  text-black outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="B_PF" class="mb-2 text-[22px] lg:text-[18px]">B Phase PF</label>
+            <input type="number" placeholder="Enter B Phase PF" id="B_Pf" class="w-full mb-2 px-1 py-1 rounded-md  text-black outline-blue-500">
+        </div>
+        <div class="flex items-start flex-col">
+            <p>Note : If you want to calculate Energy or MD then select your IP (Integration period)</p>
+        </div>
+        <div class="mt-3 flex items-center justify-start gap-12">
+            <label for="IP_15">IP is 15 minutes</label>
+            <input type="radio" value="=IP" name="IP" id="D_IP_15">
+        </div>
+        <div class="mt-3 flex items-center justify-start gap-12">
+            <label for="IP_30">IP is 30 minutes</label>
+            <input type="radio" value="=IP" name="IP" id="D_IP_30">
+        </div>
+        <div class="flex items-start flex-col">
+            <label for="R_PF" class="mb-2 text-[22px] lg:text-[18px]">Power On duration</label>
+            <input type="number" placeholder="Enter Power On duration on load " id="Minutes" class="w-full mb-2 px-1 py-1  text-black rounded-md outline-blue-500">
+        </div>
+        <div class="flex items-center justify-center mt-4 mb-4">
+            <button type="button" onclick="calculatePower3()" class="bg-blue-400 p-2 font-bold rounded-md hover:bg-blue-500 active:text-green-400">Calculate</button>
+        </div>
+        </div>
+    </div>
+<!-- This is for Result using JS -->
+    <div class="border border-gray-300 max-h-min p-8 w-3/4 mt-5 flex flex-col bg-slate-500 rounded-lg">
+        <div class="flex items-center justify-center">
+        <h1 class="font-bold text-[22px]">Results</h1>
+    </div>
+        <h5 id="R_Apparent"> </h5>
+        <h5 id="Y_Apparent"> </h5>
+        <h5 id="B_Apparent"> </h5>
+        <h5 class="font-bold" id="T_Apparent_Power"></h5>  
+        <h5 id="R_Active"></h5>
+        <h5 id="Y_Active"></h5>
+        <h5 id="B_Active"></h5>
+        <h5 class="font-bold" id="T_Active_Power"></h5>
+        <h5 id="R_Reactive"></h5>
+        <h5 id="Y_Reactive"> </h5>
+        <h5 id="B_Reactive"> </h5>
+        <h5 class="font-bold" id="T_Reactive_Power"></h5>
+        <h5 class="font-bold" id="Apparent_Power"></h5>
+        <h5 class="font-bold" id="Active_Power"></h5>
+        <h5 class="font-bold" id="Reactive_Power"></h5>
+        <!-- T=3 phase  -->
+        <h5 id="MD_kw" class="font-bold"></h5> 
+        <h5 id="kWh" class="font-bold"></h5>
+        <!-- <h5 class="font-bold">Total MD kVA :</h5> -->
+        <!-- <h5 class="font-bold">Apparent Energy :</h5> --> 
+    </div>
+</div>
+<footer class="bg-black flex w-full items-center justify-center bottom-0 fixed text-white">
+    <small>
+        Copyright © 2025 Designed by Sanjeet. All Rights Reserved.
+      </small>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
